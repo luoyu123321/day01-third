@@ -34,9 +34,26 @@ $('#form-reg').on('submit', function(e) {
         url: 'http://ajax.frontend.itheima.net/api/reguser',
         success: function(res) {
             if (res.status !== 0) {
-                return alert(res.message)
+                return layui.layer.msg(res.message)
             }
-            alert(res.message)
+            layui.layer.msg(res.message)
+            $('#go-login').click()
+        }
+    })
+})
+
+$('#form-login').on('submit', function(e) {
+    e.preventDefault()
+    $.ajax({
+        type: 'POST',
+        url: 'http://ajax.frontend.itheima.net/api/login',
+        data: $(this).serialize(),
+        success: function(res) {
+            console.log(res);
+            if (res.status !== 0) { return layui.layer.msg(res.message) }
+            layui.layer.msg('登陆成功!')
+            localStorage.setItem('token', res.token)
+            location.href = '/index.html'
         }
     })
 })
