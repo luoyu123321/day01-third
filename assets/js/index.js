@@ -1,5 +1,15 @@
 $(function() {
     getUserInfo()
+
+    $('#quit').on('click', function() {
+        layer.confirm('确定退出吗?', { icon: 3, title: '提示' }, function(index) {
+            localStorage.removeItem('token')
+            location.href = '/login.html'
+
+            layer.close(index);
+        });
+    })
+
 })
 
 function getUserInfo() {
